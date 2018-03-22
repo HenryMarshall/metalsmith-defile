@@ -13,5 +13,8 @@
     "functions",
     "immutable"
   ],
-  "author": "Henry Marshall"
+  "author": "Henry Marshall",
+  "devDependencies": {
+    "ava": "^1.0.0-beta.3"
+  }
 }
