@@ -15,3 +15,18 @@ test("throws when passed non metalsmith (curried) functions", t => {
     purify(fn)
   }, TypeError, "Purify takes a metalsmith function")
 })
+
+const testMetalsmith = obj => (files, metalsmith, done) => done()
+
+test("returns a metalsmith function", t => {
+  const purified = purify(testMetalsmith)
+  t.plan(3)
+
+  t.is(typeof purified, "function")
+  t.is(typeof purified(), "function")
+
+  purified()({}, {}, () => {
+    t.pass("done was called")
+  })
+})
+

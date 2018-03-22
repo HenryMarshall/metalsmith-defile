@@ -3,7 +3,7 @@ const purify = fn => {
     throw new TypeError("Purify takes a metalsmith function")
   }
 
-  // return fn
+  return fn
 }
 
 
