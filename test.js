@@ -16,10 +16,10 @@ test("throws when passed non metalsmith (curried) functions", t => {
   }, TypeError, "Purify takes a metalsmith function")
 })
 
-const testMetalsmith = obj => (files, metalsmith, done) => done()
 
 test("returns a metalsmith function", t => {
-  const purified = purify(testMetalsmith)
+  const testPlugin = obj => (files, metalsmith, done) => done()
+  const purified = purify(testPlugin)
   t.plan(3)
 
   t.is(typeof purified, "function")
@@ -30,3 +30,13 @@ test("returns a metalsmith function", t => {
   })
 })
 
+test("throws if files are mutated", t => {
+  const testPlugin = obj => (files, metalsmith, done) => {
+    files.foo = "bar"
+  }
+  const purified = purify(testPlugin)
+
+  t.throws(() => {
+    purified()({}, {}, () => {})
+  }, TypeError)
+})
