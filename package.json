@@ -1,0 +1,17 @@
+{
+  "name": "metalsmith-purify",
+  "version": "0.0.1",
+  "description": "Middleware to let you write pure metalsmith functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "keywords": [
+    "functional",
+    "metalsmith",
+    "pure",
+    "functions",
+    "immutable"
+  ],
+  "author": "Henry Marshall"
+}
