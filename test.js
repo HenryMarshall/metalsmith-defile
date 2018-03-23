@@ -18,7 +18,7 @@ test("throws when passed non metalsmith (curried) functions", t => {
 
 
 test("returns a metalsmith function", t => {
-  const testPlugin = obj => (files, metalsmith, done) => done()
+  const testPlugin = config => (files, metalsmith, done) => done()
   const purified = purify(testPlugin)
   t.plan(3)
 
@@ -30,13 +30,26 @@ test("returns a metalsmith function", t => {
   })
 })
 
-test("throws if files are mutated", t => {
+test("update by passing results to done", t => {
+  const files = { foo: "foo" }
+  const testPlugin = obj => (files, metalsmith, done) => {
+    done({ files: { foo: "bar" } })
+  }
+  purify(testPlugin)()(files, {}, () => {})
+
+  t.is(files.foo, "bar")
+})
+
+
+// #throwOnMutation
+test("throws if files are directly mutated", t => {
   const testPlugin = obj => (files, metalsmith, done) => {
     files.foo = "bar"
   }
-  const purified = purify(testPlugin)
+  const purified = purify(testPlugin, { throwOnMutation: true })
 
   t.throws(() => {
     purified()({}, {}, () => {})
   }, TypeError)
 })
+
