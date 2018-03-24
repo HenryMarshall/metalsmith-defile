@@ -40,8 +40,17 @@ test("update by passing results to done", t => {
   t.is(files.foo, "bar")
 })
 
+test("delete values by passing results to done", t => {
+  const files = { foo: "foo", bar: "bar" }
+  const expectedFiles = { foo: "foo" }
+  const testPlugin = obj => (files, metalsmith, done) => {
+    done({ files: expectedFiles })
+  }
 
-// #throwOnMutation
+  purify(testPlugin, { throwOnMutation: true })()(files, {}, () => {})
+  t.deepEqual(files, expectedFiles)
+})
+
 test("throws if files are directly mutated", t => {
   const testPlugin = obj => (files, metalsmith, done) => {
     files.foo = "bar"
@@ -53,3 +62,4 @@ test("throws if files are directly mutated", t => {
   }, TypeError)
 })
 
+test.todo("does not throw on mutation without flag")

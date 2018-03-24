@@ -18,8 +18,15 @@ const purify = (fn, purifyConfig = {}) => {
 const immutableCopy = R.pipe(cloneDeep, deepFreeze)
 
 const immutableDone = (files, metalsmith, done) => (updated = {}) => {
+  Object.keys(files).forEach(key => {
+    if (!updated.files.hasOwnProperty(key)) {
+      delete files[key]
+    }
+  })
+
   Object.assign(files, updated.files)
-  Object.assign(metalsmith, updated.metalsmith)
+  // Object.assign(metalsmith, updated.metalsmith)
+
   done()
 }
 
