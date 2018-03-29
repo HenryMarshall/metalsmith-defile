@@ -71,3 +71,14 @@ test("throws if files are directly mutated", t => {
   }, TypeError)
 })
 
+test("does not throw on mutation without flag", t => {
+  const testPlugin = obj => (files, metalsmith, done) => {
+    files.foo = "bar"
+    done()
+  }
+  const purified = purify(testPlugin)
+  const files = { foo: "foo" }
+  purified()(files, {}, () => {})
+
+  t.deepEqual(files, { foo: "bar" })
+})
