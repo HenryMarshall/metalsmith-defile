@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "deep-freeze": "0.0.1",
-    "lodash.clonedeep": "^4.5.0",
-    "ramda": "^0.25.0"
+    "lodash.clonedeep": "^4.5.0"
   }
 }
