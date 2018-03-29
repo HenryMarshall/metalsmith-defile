@@ -1,15 +1,15 @@
 const cloneDeep = require("lodash.clonedeep")
 const deepFreeze = require("deep-freeze")
 
-const purify = (fn, purifyConfig = {}) => {
+const defile = (fn, defileConfig = {}) => {
   if (typeof fn !== "function" || typeof fn() !== "function") {
-    throw new TypeError("Purify takes a metalsmith function")
+    throw new TypeError("Defile takes a metalsmith function")
   }
 
   return config => (files, metalsmith, done) => {
     fn(config)(
-      purifyConfig.throwOnMutation ? immutableCopy(files) : files,
-      purifyConfig.throwOnMutation ? immutableCopy(metalsmith) : metalsmith,
+      defileConfig.throwOnMutation ? immutableCopy(files) : files,
+      defileConfig.throwOnMutation ? immutableCopy(metalsmith) : metalsmith,
       immutableDone(files, metalsmith, done))
   }
 }
@@ -42,4 +42,4 @@ const deleteMissingKeys = (old, updated) => {
   })
 }
 
-module.exports = purify
+module.exports = defile

@@ -1,10 +1,14 @@
 {
-  "name": "metalsmith-purify",
+  "name": "metalsmith-defile",
   "version": "0.0.1",
   "description": "Middleware to let you write pure metalsmith functions",
   "main": "index.js",
   "scripts": {
     "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenryMarshall/metalsmith-defile.git"
   },
   "keywords": [
     "functional",
@@ -20,5 +24,6 @@
   "dependencies": {
     "deep-freeze": "0.0.1",
     "lodash.clonedeep": "^4.5.0"
-  }
+  },
+  "homepage": "https://github.com/HenryMarshall/metalsmith-defile#readme"
 }
